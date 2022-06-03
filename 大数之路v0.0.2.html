@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=no">
+    <title>大数之路</title>
+    <style>
+    .button1 {
+    background-color: #d0d0d0;
+    border: 3px solid #222222;
+    color: #000000;
+    padding: 6px 6px;
+    text-decoration: none;
+    margin: 4px 2px;
+    cursor: pointer;
+    }
+    .button2 {
+    background-color: #eeeeee;
+    border: 3px solid #444444;
+    border-radius: 4px;
+    color: #000000;
+    padding: 6px 24px;
+    text-decoration: none;
+    margin: 4px 2px;
+    cursor: pointer;
+    font-size: 14px;
+    }
+    .button3 {
+    background-color: #fa2020;
+    border: 3px solid #b90000;
+    color: #000000;
+    padding: 6px 6px;
+    text-decoration: none;
+    margin: 4px 2px;
+    cursor: pointer;
+    }
+    .button4 {
+    background-color: #eeeeee;
+    border: 2.5px solid #000000;
+    color: #000000;
+    padding: 6px 24px;
+    text-decoration: none;
+    margin: 4px 2px;
+    cursor: pointer;
+    }
+    .input1 {
+    background-color: #f5f5f5;
+    border: 1.5px solid #000000;
+    color: #000000;
+    padding: 5px 6px;
+    text-decoration: none;
+    margin: 4px 2px;
+    cursor: pointer;
+    }
+
+    .btn-group button {
+    background-color: #eeeeee;
+    border: 2.5px solid #000000;
+    color: #000000;
+    padding: 8px 20px;
+    cursor: pointer;
+    float: left;
+    font-size: 15px;
+    }
+
+.btn-group:after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+.btn-group button:not(:last-child) {
+    border-right: none; /* Prevent double borders */
+}
+
+/* 点击效果 */
+.button2:hover {
+    background-color: #cccccc;
+}
+.btn-group button:hover {
+    background-color: #cccccc;
+}
+    </style>
+</head>
+<body style="background-color:#ffffff" onselectstart="return false">
+    <div style="padding:0 16px">
+        <h3>当前数字：<span id='number'>0</span></h3>
+        <button class='button4' id="p1" onclick='add1()'>点击按钮增加数字</button>
+    <span id='u0'><button class="button1" id='u1' onclick='unlock1()'>解锁加法</button>价格：100</span>
+    <br/ >
+    <span id='buttonA'>
+        <button class='button2' style="width:105px" id="auto0" onclick='auto()'>自动化</button>
+        <button class='button2' style="width:105px" id="s1" onclick='setting1()'>设置</button>
+        <button class='button2' style="width:105px" id="s10" onclick='setting2()'>关于</button>
+        <button class='button2' style="width:105px" id="o1" onclick='open1()'>加法</button>
+    </span>
+    <span id='auto1'>
+        <button class='button1' id="buyAuto2" onclick='buyAuto1()'>自动点击后继按钮</button><span id='autoSpeed1'>0</span>/s&nbsp&nbsp&nbsp&nbsp价格：<span id='price3'>1000</span>
+    </span>
+    <span id='level1'>
+        加法增益：+<span id='n1'>0</span><br />
+        <button class='button1' id="b1" onclick='buy1()'>提升后继效果</button>价格：<span id='price1'>20</span>
+        <span id='b3'><button class='button1' id="b2" onclick='buy2()'>大幅提升后继效果</button>价格：<span id='price2'>1000</span></span>
+        <span id='b5'><button class='button1' id="b4" onclick='buy3()'>增加升级效果</button>价格：10000</span>
+        <span id='u3'><button class='button1' id="u4" onclick='unlock2()'>解锁乘法</button>（敬请期待）</span>
+    </span>
+    <span id='s2'><button class='button1' id="export" onclick='export1()'>导出存档</button>
+        <button class='button1' id="import" onclick='import1()'>导入存档</button>
+        <button class='button3' id="reset" onclick='reset1()'>硬重置</button>
+        <form>
+        存档：<input class='input1' type="text" name="save1" id='save'><!--<button class='button2' id="copy" onclick='copy1()'>复制</button>-->
+        </form>
+    </span>
+    <span id='s11'>
+        <b>大数之路v0.0.2</b><br /><span style="color:#ee6622"><span style="font-weight:bold">作者：</span>静火Ω</span>
+        <details>
+        <summary>更新记录</summary>
+        <div style="height:340px;width:200px;font-family:verdana;background-color: #eeeeee;padding:8px 20px;border-radius:10px;border:8px solid #444444;overflow:scroll">
+        <p><b>v0.0.2</b><br />-增加“自动化”选项<br />-增加“加法增益”显示<br />-增加“更新记录”<br />-更改按钮外观<br />-修复导入存档的bug</p>
+        <p><b>v0.0.1</b><br />-增加“加法”选项<br />-增加“设置”选项<br />-增加“关于”选项</p>
+        </div>
+        </details>
+    </span>
+    </div>
+</body>
+</html>
+<script>
+        var a1=0
+        var a2=0
+        var l1=1
+        var l2=20
+        var l3=20
+        var l4=0
+        var l5=1000
+        var l6=1000
+        var u2=0
+        var isAuto1open=false
+        var islevel1open=false
+        var isSetting1open=false
+        var isSetting2open=false
+        var auto1=0
+        var autoPrice1=1000
+        var autoPrice2=1000
+        var m1=1
+        var u5=0
+        document.getElementById("level1").style.display="none";
+        document.getElementById("u0").style.display="none";
+        document.getElementById("o1").style.display="none";
+        document.getElementById("b3").style.display="none";
+        document.getElementById("s2").style.display="none";
+        document.getElementById("s11").style.display="none";
+        document.getElementById("b5").style.display="none";
+        document.getElementById("u3").style.display="none";
+        document.getElementById("auto1").style.display="none";
+        function add1(){
+        var a1=document.getElementById("number");
+        a1.innerHTML=parseInt(a1.innerHTML)+(l1+l4-1)*m1+1;
+        a2+=(l1+l4-1)*m1+1
+        if (a2>=50&&u2==0){
+            document.getElementById("u0").style.display="inline";
+        }
+        if (a2>=5000&&m1==1){
+            document.getElementById("b5").style.display="block";
+        }
+        if (a2>=20000&&u5==0){
+            document.getElementById("u3").style.display="block";
+        }
+        }
+        function buyAuto1(){
+        if (a2>=autoPrice1){
+            var a1=document.getElementById("number");
+            a1.innerHTML=parseInt(a1.innerHTML)-autoPrice1;
+            a2-=autoPrice1
+            auto1+=1
+            var autoSpeed2=document.getElementById("autoSpeed1");
+            autoSpeed2.innerHTML=parseInt(autoSpeed2.innerHTML)+1;
+            var autoPrice2=document.getElementById("price3");
+            autoPrice2.innerHTML=parseInt(autoPrice2.innerHTML)*10;
+            autoPrice1*=10
+        }
+        }
+        function buy1(){
+        if (a2>=l2){
+            var a1=document.getElementById("number");
+            a1.innerHTML=parseInt(a1.innerHTML)-l2;
+            a2-=l2
+            l1+=1
+            var n3=document.getElementById("n1");
+            n3.innerHTML=parseInt(n3.innerHTML)+1*m1;
+            var l3=document.getElementById("price1");
+            l3.innerHTML=parseInt(l3.innerHTML)+l1*l1-1;
+            l2+=l1*l1-1
+        }
+        if (l1>=11){
+            document.getElementById("b3").style.display="block";
+        }
+        }
+        function unlock1(){
+        if (a2>=100){
+            document.getElementById("u0").style.display="none";
+            var a1=document.getElementById("number");
+            a1.innerHTML=parseInt(a1.innerHTML)-100;
+            a2-=100
+            u2+=1
+            document.getElementById("o1").style.display="inline";
+        }
+        }
+        function buy2(){
+        if (a2>=l5){
+            var a1=document.getElementById("number");
+            a1.innerHTML=parseInt(a1.innerHTML)-l5;
+            a2-=l5
+            l4+=10
+            var n3=document.getElementById("n1");
+            n3.innerHTML=parseInt(n3.innerHTML)+10*m1;
+            var l6=document.getElementById("price2");
+            l6.innerHTML=parseInt(l6.innerHTML)+l4*l4*2;
+            l5+=l4*l4*2
+        }
+        }
+        function buy3(){
+        if (a2>=10000){
+            var a1=document.getElementById("number");
+            a1.innerHTML=parseInt(a1.innerHTML)-10000;
+            a2-=10000
+            m1+=1
+            var n3=document.getElementById("n1");
+            n3.innerHTML=parseInt(n3.innerHTML)*m1;
+            document.getElementById("b5").style.display="none";
+        }
+        }
+        function export1(){
+        document.getElementById("save").value=a2+','+u2+','+l1+','+l2+','+l4+','+l5+','+m1+','+auto1+','+autoPrice1;
+        }
+        function import1(){
+        var i1=document.getElementById("save");
+        var i2=i1.value;
+        var i3=i2.split(',');
+        var i4=isNaN(i3[i3.length-9]+i3[i3.length-8]+i3[i3.length-7]+i3[i3.length-6]+i3[i3.length-5]+i3[i3.length-4]+i3[i3.length-3]+i3[i3.length-2]+i3[i3.length-1])
+        if (i4==false){
+        autoPrice1=Number(i3[i3.length-1]);
+        auto1=Number(i3[i3.length-2]);
+        m1=Number(i3[i3.length-3]);
+        l5=Number(i3[i3.length-4]);
+        l4=Number(i3[i3.length-5]);
+        l2=Number(i3[i3.length-6]);
+        l1=Number(i3[i3.length-7]);
+        u2=Number(i3[i3.length-8]);
+        a2=Number(i3[i3.length-9]);
+        var a1=document.getElementById("number");
+        a1.innerHTML=parseInt(a1.innerHTML)*0+a2;
+        var l3=document.getElementById("price1");
+        l3.innerHTML=parseInt(l3.innerHTML)*0+l2;
+        var l6=document.getElementById("price2");
+        l6.innerHTML=parseInt(l6.innerHTML)*0+l5;
+        var n3=document.getElementById("n1");
+        n3.innerHTML=parseInt(n3.innerHTML)*0+(l1+l4-1)*m1;
+        var autoSpeed2=document.getElementById("autoSpeed1");
+        autoSpeed2.innerHTML=parseInt(autoSpeed2.innerHTML)*0+auto1;
+        var autoPrice2=document.getElementById("price3");
+        autoPrice2.innerHTML=parseInt(autoPrice2.innerHTML)*0+autoPrice1;
+        if (u2==0&&a2>=50){
+            document.getElementById("u0").style.display="inline";
+        }
+        else{
+            document.getElementById("u0").style.display="none";
+        }
+        if (u2==1){
+            document.getElementById("o1").style.display="inline";
+        }
+        else{
+            document.getElementById("o1").style.display="none";
+            document.getElementById("level1").style.display="none";
+            islevel1open=false;
+        }
+        if (l1>=11){
+            document.getElementById("b3").style.display="block";
+        }
+        else{
+            document.getElementById("b3").style.display="none";
+        }
+        if (a2>=5000&&m1==1){
+            document.getElementById("b5").style.display="block";
+        }
+        else{
+            document.getElementById("b5").style.display="none";
+        }
+        if (a2>=20000&&u5==0){
+            document.getElementById("u3").style.display="block";
+        }
+        else{
+            document.getElementById("u3").style.display="none";
+        }
+        }
+        else{
+        alert('存档无效！');
+        }
+        }
+        function auto(){
+        if (isAuto1open==true){
+            document.getElementById("auto1").style.display="none";
+            isAuto1open=false
+        }
+        else{
+            document.getElementById("auto1").style.display="block";
+            isAuto1open=true
+        }
+        if (islevel1open==true){
+            document.getElementById("level1").style.display="none";
+            islevel1open=false
+        }
+        if (isSetting1open==true){
+            document.getElementById("s2").style.display="none";
+            isSetting1open=false
+        }
+        if(isSetting2open==true){
+            document.getElementById("s11").style.display="none";
+            isSetting2open=false
+        }
+        }
+        function open1(){
+        if (islevel1open==true){
+            document.getElementById("level1").style.display="none";
+            islevel1open=false
+        }
+        else{
+            document.getElementById("level1").style.display="block";
+            islevel1open=true
+        }
+        if (isAuto1open==true){
+            document.getElementById("auto1").style.display="none";
+            isAuto1open=false
+        }
+        if(isSetting1open==true){
+            document.getElementById("s2").style.display="none";
+            isSetting1open=false
+        }
+        if(isSetting2open==true){
+            document.getElementById("s11").style.display="none";
+            isSetting2open=false
+        }
+        }
+        function setting1(){
+        if (isSetting1open==true){
+            document.getElementById("s2").style.display="none";
+            isSetting1open=false
+        }
+        else{
+            document.getElementById("s2").style.display="block";
+            isSetting1open=true
+        }
+        if (isAuto1open==true){
+            document.getElementById("auto1").style.display="none";
+            isAuto1open=false
+        }
+        if (islevel1open==true){
+            document.getElementById("level1").style.display="none";
+            islevel1open=false
+        }
+        if(isSetting2open==true){
+            document.getElementById("s11").style.display="none";
+            isSetting2open=false
+        }
+        }
+        function setting2(){
+        if (isSetting2open==true){
+            document.getElementById("s11").style.display="none";
+            isSetting2open=false
+        }
+        else{
+            document.getElementById("s11").style.display="block";
+            isSetting2open=true
+        }
+        if (isAuto1open==true){
+            document.getElementById("auto1").style.display="none";
+            isAuto1open=false
+        }
+        if(isSetting1open==true){
+            document.getElementById("s2").style.display="none";
+            isSetting1open=false
+        }
+        if (islevel1open==true){
+            document.getElementById("level1").style.display="none";
+            islevel1open=false
+        }
+        }
+        /*
+        function copy1(){
+        var copy2=document.getElementById("save");
+        copy2.select();
+        document.execCommand('Copy');
+        }
+        */
+        function reset1(){
+        var r1=confirm("是否确定重置存档？此操作不可逆！");
+        if (r1==true)
+        {
+        a1=0
+        a2=0
+        l1=1
+        l2=20
+        l3=20
+        l4=0
+        l5=1000
+        l6=1000
+        u2=0
+        isSetting1open=false
+        auto1=0
+        autoPrice1=1000
+        autoPrice2=1000
+        m1=1
+        var a1=document.getElementById("number");
+        a1.innerHTML=parseInt(a1.innerHTML)*0;
+        var l3=document.getElementById("price1");
+        l3.innerHTML=parseInt(l3.innerHTML)*0+20;
+        var l6=document.getElementById("price2");
+        l6.innerHTML=parseInt(l6.innerHTML)*0+1000;
+        var n3=document.getElementById("n1");
+        n3.innerHTML=parseInt(n3.innerHTML)*0;
+        var autoSpeed2=document.getElementById("autoSpeed1");
+        autoSpeed2.innerHTML=parseInt(autoSpeed2.innerHTML)*0;
+        var autoPrice2=document.getElementById("price3");
+        autoPrice2.innerHTML=parseInt(autoPrice2.innerHTML)*0+1000;
+        document.getElementById("level1").style.display="none";
+        document.getElementById("u0").style.display="none";
+        document.getElementById("b3").style.display="none";
+        document.getElementById("o1").style.display="none";
+        document.getElementById("s2").style.display="none";
+        document.getElementById("s11").style.display="none";
+        document.getElementById("b5").style.display="none";
+        document.getElementById("u0").style.display="none";
+        document.getElementById("save").value='';
+        }
+        }
+        setInterval(function(){
+        if (auto1==1){
+        var a1=document.getElementById("number");
+        a1.innerHTML=parseInt(a1.innerHTML)+(l1+l4-1)*m1+1;
+        a2+=(l1+l4-1)*m1+1
+        }
+        },1000)
+        setInterval(function(){
+        if (auto1==2){
+        var a1=document.getElementById("number");
+        a1.innerHTML=parseInt(a1.innerHTML)+(l1+l4-1)*m1+1;
+        a2+=(l1+l4-1)*m1+1
+        }
+        },500)
+        setInterval(function(){
+        if (auto1==3){
+        var a1=document.getElementById("number");
+        a1.innerHTML=parseInt(a1.innerHTML)+(l1+l4-1)*m1+1;
+        a2+=(l1+l4-1)*m1+1
+        }
+        },1000/3)
+        setInterval(function(){
+        if (auto1==4){
+        var a1=document.getElementById("number");
+        a1.innerHTML=parseInt(a1.innerHTML)+(l1+l4-1)*m1+1;
+        a2+=(l1+l4-1)*m1+1
+        }
+        },250)
+        setInterval(function(){
+        if (auto1==5){
+        var a1=document.getElementById("number");
+        a1.innerHTML=parseInt(a1.innerHTML)+(l1+l4-1)*m1+1;
+        a2+=(l1+l4-1)*m1+1
+        }
+        },200)
+        setInterval(function(){
+        if (auto1==6){
+        var a1=document.getElementById("number");
+        a1.innerHTML=parseInt(a1.innerHTML)+(l1+l4-1)*m1+1;
+        a2+=(l1+l4-1)*m1+1
+        }
+        },1000/6)
+        setInterval(function(){
+        if (auto1==7){
+        var a1=document.getElementById("number");
+        a1.innerHTML=parseInt(a1.innerHTML)+(l1+l4-1)*m1+1;
+        a2+=(l1+l4-1)*m1+1
+        }
+        },1000/7)
+        setInterval(function(){
+        if (auto1==8){
+        var a1=document.getElementById("number");
+        a1.innerHTML=parseInt(a1.innerHTML)+(l1+l4-1)*m1+1;
+        a2+=(l1+l4-1)*m1+1
+        }
+        },125)
+        setInterval(function(){
+        if (auto1==9){
+        var a1=document.getElementById("number");
+        a1.innerHTML=parseInt(a1.innerHTML)+(l1+l4-1)*m1+1;
+        a2+=(l1+l4-1)*m1+1
+        }
+        },1000/9)
+        setInterval(function(){
+        if (auto1==10){
+        var a1=document.getElementById("number");
+        a1.innerHTML=parseInt(a1.innerHTML)+(l1+l4-1)*m1+1;
+        a2+=(l1+l4-1)*m1+1
+        }
+        },100)
+</script>
