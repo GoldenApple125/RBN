@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+        <title>大数之路</title>
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <script type="text/javascript" src="break_infinity.js"></script>
+        <script type="text/javascript" src="main.js"></script>
+        <script type="text/javascript" src="amount.js"></script>
+    </head>
+    <body class="main" style="background-color: #ffffff;" onselectstart ="return false">
+        <div class="line_columns" style="left: 210px;"></div>
+        <div class="line_rows" style="top: 97px;"></div>
+        <div class="main1">
+            <div class="title" style="font-size: 20px;margin-top: 22.5px;text-align: center;text-shadow: 1px 1px 1px #9a9a9a;">
+                <b>大数之路v1.0.0</b>
+                <div style="color: #ee6622;text-shadow: 1px 1px 1px #ee6622;">by 静火Ω</div>
+            </div>
+        </div>
+        <div class="main2" style="margin-left: 19px;padding-top: 3px;overflow-y: auto;">
+            <div style="margin-top: 15px;">
+                <div class="menu1"><b>加法</b></div>
+                <div class="menu2" onclick="menu('1_1')">加法升级</div>
+                <div class="menu2" onclick="menu('1_2')">条状研究</div>
+                <div class="menu2" onclick="menu('1_3')" id="menu1_3" style="display: none;">自动化T1</div>
+            </div>
+            <div style="display: none;">
+                <div class="menu1"><span style="color: #169be3;"><b>乘法</b></span></div>
+                <div class="menu2" onclick="menu('2_1')">乘法升级</div>
+                <div class="menu2" onclick="menu('2_2')">表状研究</div>
+                <div class="menu2" onclick="menu('2_3')">乘法能量</div>
+                <div class="menu2" onclick="menu('2_4')">标准挑战</div>
+                <div class="menu2" onclick="menu('2_5')">自动化T2</div>
+            </div>
+            <div style="display: none;">
+                <div class="menu1"><span style="color: #cb06f2;"><b>乘方</b></span></div>
+                <div class="menu2" onclick="menu('3_1')">乘方升级</div>
+                <div class="menu2" onclick="menu('3_2')">网状研究</div>
+                <div class="menu2" onclick="menu('3_3')">乘方能量</div>
+                <div class="menu2" onclick="menu('3_4')">力量里程碑</div>
+                <div class="menu2" onclick="menu('3_5')">重复挑战</div>
+                <div class="menu2" onclick="menu('3_6')">自动化T3</div>
+            </div>
+            <div style="display: none;">
+                <div class="menu1"><span style="color: #fba300;"><b>迭代</b></span></div>
+                <div class="menu2" onclick="menu('4_1')">迭代升级</div>
+                <div class="menu2" onclick="menu('4_2')">树状研究</div>
+                <div class="menu2" onclick="menu('4_3')">迭代能量</div>
+                <div class="menu2" onclick="menu('4_4')">速度里程碑</div>
+                <div class="menu2" onclick="menu('4_5')">无尽挑战</div>
+                <div class="menu2" onclick="menu('4_6')">自动化T4</div>
+            </div>
+            <div>
+                <div class="menu1"><b>进度</b></div>
+                <div class="menu2" onclick="menu('11_1')">成就</div>
+            </div>
+            <div style="margin-bottom: 15px;">
+                <div class="menu1"><b>选项</b></div>
+                <div class="menu2" onclick="menu('12_1')">统计</div>
+                <div class="menu2" onclick="menu('12_2')">设置</div>
+                <div class="menu2" onclick="menu('12_3')">关于</div>
+            </div>
+        </div>
+        <div class="main3">
+            <div style="font-size: 18px;margin-top: 7.5px;text-align: center;position: absolute;white-space: nowrap;left: 230px;">这是一条新闻</div>
+            <div class="line_rows" style="position: relative;top: 40px;background-color: #d9d9d9;"></div>
+        </div>
+        <div class="main4">
+            <div style="font-size: 20px;margin-top: 1px;margin-left: 20px;text-align: left;color: #4b4b4b;">
+                <b>大数点</b>&nbsp;
+                <span id="LNP" style="text-shadow:1px 1px 1.5px #4b4b4b;">0</span>
+                <span style="color: #7a7a7a;font-size: 17px;position: absolute;left: 230px;margin-top: 2px;"><br>+<span id="gainLNP">0</span>/s</span>
+                <span style="color: #7a7a7a;float: right;margin-right: 16px;margin-top: 10px;font-size: 18px;font-style: italic;">你当前不在挑战中</span>
+            </div>
+        </div>
+        <div class="main5" style="overflow-y: scroll;">
+            <div id="main1_1">
+                <div style="margin: 7px 10px;font-size: 15px;color: #9a9a9a;">加法升级
+                </div>
+                <div class="background1">
+                    <table class="upgradeTable" style="height: 340px;">
+                        <tr style="background-color: #f0f0f0;">
+                            <td class="td_rows" style="width: 100px;"><b>升级名称</b></td>
+                            <td class="td_rows" style="width: 80px;"><b>等级</b></td>
+                            <td class="td_rows" style="width: 120px;"><b>基础效果</b></td>
+                            <td class="td_rows" style="width: 100px;"><b>总效果</b></td>
+                            <td class="td_rows" style="width: 120px;"><b>价格</b></td>
+                            <td class="td_rows" style="width: 80px;"></td>
+                        </tr>
+                        <tr>
+                            <td class="td_rows">加法生成器</td>
+                            <td class="td_rows" id="level1_1">0</td>
+                            <td class="td_rows">大数点获取+<span id="basic_effect1_1">1</span></td>
+                            <td class="td_rows">+<span id="effect1_1">0</span></td>
+                            <td class="td_rows"><span id="price1_1">10</span>大数点</td>
+                            <td class="td_rows"><div class="upgrade" id="buy1_1" onclick="buy1_1()">升级</div></td>
+                        </tr>
+                        <tr>
+                            <td class="td_rows">加法强化器</td>
+                            <td class="td_rows" id="level1_2">0</td>
+                            <td class="td_rows">大数点获取+<span id="basic_effect1_2">100</span>%</td>
+                            <td class="td_rows">+<span id="effect1_2">0</span>%</td>
+                            <td class="td_rows"><span id="price1_2">100</span>大数点</td>
+                            <td class="td_rows"><div class="upgrade" id="buy1_2" onclick="buy1_2()">升级</div></td>
+                        </tr>
+                        <tr>
+                            <td>加法压缩器</td>
+                            <td id="level1_3">0</td>
+                            <td>加法升级价格×<span id="basic_effect1_3">0.9</span></td>
+                            <td>×<span id="effect1_3">1</span></td>
+                            <td><span id="price1_3">1000</span>大数点</td>
+                            <td><div class="upgrade" id="buy1_3" onclick="buy1_3()">升级</div></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div id="main1_2">
+                <div style="margin: 7px 10px;font-size: 15px;color: #9a9a9a;">条状研究</div>
+                <div class="background1">
+                    <table class="upgradeTable" style="height: 300px;">
+                        <tr style="height: 150px;">
+                            <td class="td_colums" style="width: 100px;padding: 6px;">加法生成器每10级使基础效果×2</td>
+                            <td class="td_colums" style="width: 100px;padding: 6px;">加法强化器每级使基础效果+5%</td>
+                            <td class="td_colums" style="width: 100px;padding: 6px;">加法压缩器效果×2</td>
+                            <td class="td_colums" style="width: 100px;padding: 6px;">加法升级总等级提升大数点获取<br>
+                                <span style="color: #7a7a7a;">当前：×<span id="effect1_all">1</span></span>
+                            </td>
+                            <td class="td_colums" style="width: 100px;padding: 6px;">解锁自动化T1</td>
+                            <td class="td_colums" style="width: 100px;padding: 6px;">解锁乘法重置<br>（未完待续）</td>
+                        </tr>
+                        <tr style="height: 50px;">
+                            <td class="td_colums" style="padding: 4px;">1000大数点</td>
+                            <td class="td_colums" style="padding: 4px;">50000大数点</td>
+                            <td class="td_colums" style="padding: 4px;">300000大数点</td>
+                            <td class="td_colums" style="padding: 4px;">2e6大数点</td>
+                            <td class="td_colums" style="padding: 4px;">1e8大数点</td>
+                            <td class="td_colums" style="padding: 4px;">5e10大数点</td>
+                        </tr>
+                        <tr style="height: 70px;">
+                            <td class="td_colums"><div class="upgrade" id="research1_1" onclick="research1_1()">研究</div></td>
+                            <td class="td_colums"><div class="upgrade" id="research1_2" onclick="research1_2()">研究</div></td>
+                            <td class="td_colums"><div class="upgrade" id="research1_3" onclick="research1_3()">研究</div></td>
+                            <td class="td_colums"><div class="upgrade" id="research1_4" onclick="research1_4()">研究</div></td>
+                            <td class="td_colums"><div class="upgrade" id="research1_5" onclick="research1_5()">研究</div></td>
+                            <td class="td_colums"><div class="upgrade" id="research1_6" onclick="research1_6()">研究</div></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div id="main1_3">
+                <div style="margin: 7px 10px;font-size: 15px;color: #9a9a9a;">自动化T1</div>
+                <div class="background1">
+                    <table class="upgradeTable" style="height: 300px;">
+                        <tr style="height: 150px;">
+                            <td class="td_colums" style="width: 200px;padding: 6px;">自动购买加法生成器</td>
+                            <td class="td_colums" style="width: 200px;padding: 6px;">自动购买加法强化器</td>
+                            <td class="td_colums" style="width: 200px;padding: 6px;">自动购买加法压缩器</td>
+                            <td class="td_colums" style="width: 300px;padding: 6px;">自动购买加法升级模式</td>
+                        </tr>
+                        <tr style="height: 70px;">
+                            <td class="td_colums"><div class="upgrade" id="auto1_1" onclick="auto1_1()">已开启</div></td>
+                            <td class="td_colums"><div class="upgrade" id="auto1_2" onclick="auto1_2()">已开启</div></td>
+                            <td class="td_colums"><div class="upgrade" id="auto1_3" onclick="auto1_3()">已开启</div></td>
+                            <td class="td_colums"><div class="upgrade" id="auto1_mode" onclick="auto1_mode()" style="width: 130px;">从上至下购买</div></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div id="main2_1">
+                <div style="margin: 7px 10px;font-size: 15px;color: #9a9a9a;">乘法升级</div>
+            </div>
+            <div id="main2_2">
+                <div style="margin: 7px 10px;font-size: 15px;color: #9a9a9a;">表状研究</div>
+            </div>
+            <div id="main2_3">
+                <div style="margin: 7px 10px;font-size: 15px;color: #9a9a9a;">乘法能量</div>
+            </div>
+            <div id="main2_4">
+                <div style="margin: 7px 10px;font-size: 15px;color: #9a9a9a;">标准挑战</div>
+            </div>
+            <div id="main2_5">
+                <div style="margin: 7px 10px;font-size: 15px;color: #9a9a9a;">自动化T2</div>
+            </div>
+            <div id="main3_1">
+                <div style="margin: 7px 10px;font-size: 15px;color: #9a9a9a;">乘方升级</div>
+            </div>
+            <div id="main3_2">
+                <div style="margin: 7px 10px;font-size: 15px;color: #9a9a9a;">网状研究</div>
+            </div>
+            <div id="main3_3">
+                <div style="margin: 7px 10px;font-size: 15px;color: #9a9a9a;">乘方能量</div>
+            </div>
+            <div id="main3_4">
+                <div style="margin: 7px 10px;font-size: 15px;color: #9a9a9a;">力量里程碑</div>
+            </div>
+            <div id="main3_5">
+                <div style="margin: 7px 10px;font-size: 15px;color: #9a9a9a;">重复挑战</div>
+            </div>
+            <div id="main3_6">
+                <div style="margin: 7px 10px;font-size: 15px;color: #9a9a9a;">自动化T3</div>
+            </div>
+            <div id="main4_1">
+                <div style="margin: 7px 10px;font-size: 15px;color: #9a9a9a;">迭代升级</div>
+            </div>
+            <div id="main4_2">
+                <div style="margin: 7px 10px;font-size: 15px;color: #9a9a9a;">树状研究</div>
+            </div>
+            <div id="main4_3">
+                <div style="margin: 7px 10px;font-size: 15px;color: #9a9a9a;">迭代能量</div>
+            </div>
+            <div id="main4_4">
+                <div style="margin: 7px 10px;font-size: 15px;color: #9a9a9a;">速度里程碑</div>
+            </div>
+            <div id="main4_5">
+                <div style="margin: 7px 10px;font-size: 15px;color: #9a9a9a;">无尽挑战</div>
+            </div>
+            <div id="main4_6">
+                <div style="margin: 7px 10px;font-size: 15px;color: #9a9a9a;">自动化T4</div>
+            </div>
+            <div id="main11_1">
+                <div style="margin: 7px 10px;font-size: 15px;color: #9a9a9a;">成就</div>
+            </div>
+            <div id="main12_1">
+                <div style="margin: 7px 10px;font-size: 15px;color: #9a9a9a;">统计</div>
+            </div>
+            <div id="main12_2">
+                <div style="margin: 7px 10px;font-size: 15px;color: #9a9a9a;">设置</div>
+            </div>
+            <div id="main12_3">
+                <div style="margin: 7px 10px;font-size: 15px;color: #9a9a9a;">关于</div>
+                <div class="background1">
+                    <div style="font-size: 22px;text-align: center;line-height: 36px;"><b>大数之路</b></div>
+                    <table style="margin: auto;">
+                        <tr>
+                            <td style="font-size: 18px;text-align: center;color: #4b4b4b;line-height: 36px;width: 65px;text-align: left;">
+                                <b>版本</b>
+                            </td>
+                            <td style="font-size: 18px;text-align: center;color: #ee6622;width: 115px;text-align: right;">
+                                1.0.0-R001
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="font-size: 18px;text-align: center;color: #4b4b4b;line-height: 36px;text-align: left;">
+                                <b>开发者</b>
+                            </td>
+                            <td style="font-size: 18px;text-align: center;color: #ee6622;text-align: right;">
+                                静火Ω
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="font-size: 18px;text-align: center;color: #4b4b4b;line-height: 36px;text-align: left;">
+                                <b>QQ群</b>
+                            </td>
+                            <td style="font-size: 18px;text-align: center;color: #ee6622;text-align: right;">
+                                418788176
+                            </td>
+                        </tr>
+                    </table>
+                    <div style="font-size: 18px;text-align: center;color: #4b4b4b;line-height: 36px;margin: 5px 0px;"><b>特别感谢</b></div>
+                    <table style="margin: auto;font-size: 18px;text-align: center;">
+                        <tr>
+                            <td style="width: 200px;">
+                                1.1
+                            </td>
+                            <td style="width: 200px;">
+                                1.2
+                            </td>
+                            <td style="width: 200px;">
+                                1.3
+                            </td>
+                            <td style="width: 200px;">
+                                1.4
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                2.1
+                            </td>
+                            <td>
+                                2.2
+                            </td>
+                            <td>
+                                2.3
+                            </td>
+                            <td>
+                                2.4
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                3.1
+                            </td>
+                            <td>
+                                3.2
+                            </td>
+                            <td>
+                                3.3
+                            </td>
+                            <td>
+                                3.4
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script>
+        menu("1_1");
+    </script>
+</html>
