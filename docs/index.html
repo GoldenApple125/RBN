@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no,maximum-scale=1,minimum-scale=1">
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <script type="text/javascript" src="break_infinity.js"></script>
+        <script type="text/javascript" src="save.js"></script>
+        <script type="text/javascript" src="show.js"></script>
+        <script type="text/javascript" src="main.js"></script>
+        <title>大数之路</title>
+    </head>
+    <body>
+        <div class="dialog_backgroud" style="display: none;" id="mainDialog">
+            <div class="dialog">
+                <div style="display: none;" id="dialog1">
+                    <div>乘法重置将会使你失去绝大部分加法层级的资源和升级，但你将会得到<div style="display: inline;font-weight: bold;color: #009dd9;">0</div>乘法点，是否继续？</div>
+                    <div class="upgrade" style="margin-top: 260px;">
+                        <div class="upgrade_button1" style="width: 100px;margin: 0px 40px;" onclick="useDialog(1)">确定</div>
+                        <div class="upgrade_button1" style="width: 100px;margin: 0px 40px;" onclick="closeDialog()">取消</div>
+                    </div>
+                </div>
+                <div style="display: none;" id="dialog2">
+                    <div>加载存档失败，发生的错误如下，请检查存档！</div><div id="errorText">1</div>
+                    <div class="upgrade_button1" style="width: 100px;position: absolute;bottom: 20px;left: 50%;margin-left: -54px;" onclick="useDialog(2)">确定</div>
+                </div>
+                <div style="display: none;" id="dialog3">
+                    <div>硬重置将使你失去当前的一切进度，且你将不会<br>得到任何奖励，是否继续？</div>
+                    <div class="upgrade" style="margin-top: 260px;">
+                        <div class="upgrade_button1" style="width: 100px;margin: 0px 40px;" onclick="useDialog(3)">确定</div>
+                        <div class="upgrade_button1" style="width: 100px;margin: 0px 40px;" onclick="closeDialog()">取消</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="dialog_backgroud" style="display: none;" id="mainDialog2">
+            <div class="dialog">
+                <div style="display: none;" id="dialog4">
+                    <div>选择一个基础应用效果</div>
+                    <div class="milestone1" style="height: 300px;">
+                        <div class="upgrade_button2" id="applicationUse1" onclick="useApplication(v1)">1</div>
+                        <div class="upgrade_button2" id="applicationUse2" onclick="useApplication(v2)">2</div>
+                        <div class="upgrade_button2" id="applicationUse3" onclick="useApplication(v3)">3</div>
+                        <div class="upgrade_button2" style="display: none;" id="applicationUse4" onclick="useApplication(v4)">4</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="body1">
+            <div class="body1_1">
+                <div class="background">
+                    <div class="title">
+                        <div style="font-size: 24px;color: #000000;text-shadow: #8e8e8e 1px 1px 2px;">大数之路</div>
+                        <div style="font-size: 20px;">v1.0.0-alpha.1</div>
+                    </div>
+                </div>
+            </div>
+            <div class="body1_2">
+                <div class="background" style="overflow: hidden;">
+                    <div class="main">
+                        <div class="menu1" style="color: #4f4f4f">加法</div>
+                        <div class="menu_line"></div>
+                        <div class="menu2" id="menu1_1" onclick="menu('1_1')">加法升级</div>
+                        <div class="menu2" id="menu1_2" onclick="menu('1_2')">条状研究</div>
+                        <div class="menu2" id="menu1_3" onclick="menu('1_3')" style="display: none;">理论Ⅰ</div>
+                        <div class="menu2" id="menu1_4" onclick="menu('1_4')" style="display: none;">自动化T1</div>
+                        <div id="menu2_all" style="display: none;">
+                            <div class="menu1" style="color: #009dd9;">乘法</div>
+                            <div class="menu_line"></div>
+                            <div class="menu2" id="menu2_1" onclick="menu('2_1')">乘法升级</div>
+                            <div class="menu2" id="menu2_2" onclick="menu('2_2')">表状研究</div>
+                            <div class="menu2" id="menu2_3" onclick="menu('2_3')">理论Ⅱ</div>
+                            <div class="menu2" id="menu2_4" onclick="menu('2_4')">普通挑战</div>
+                            <div class="menu2" id="menu2_5" onclick="menu('2_5')">自动化T2</div>
+                        </div>
+                        <div class="menu1">成就</div>
+                        <div class="menu_line"></div>
+                        <div class="menu2" id="menu11_1" onclick="menu('11_1')">普通成就</div>
+                        <div class="menu2" id="menu11_2" onclick="menu('11_2')" style="display: none;">隐藏成就</div>
+                        <div class="menu1">选项</div>
+                        <div class="menu_line"></div>
+                        <div class="menu2" id="menu12_1" onclick="menu('12_1')">统计数据</div>
+                        <div class="menu2" id="menu12_2" onclick="menu('12_2')">设置选项</div>
+                        <div class="menu2" id="menu12_3" onclick="menu('12_3')">关于游戏</div>
+                        <div style="height: 20px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="body2">
+            <div class="body2_1">
+                <div class="background">
+                    <div style="font-size: 18px;text-align: center;margin: 12px 0px;">
+                        <div style="color: #8e8e8e;">当前无事发生(<div style="display: inline;" id="newsTime">hh:mm:ss</div>)</div>
+                    </div>
+                </div>
+            </div>
+            <div class="body2_2">
+                <div class="background" style="font-size: 20px;">
+                    <div style="position: absolute;display: inline-block;margin-left: 15px;margin-top: 5px;">
+                        <div style="font-weight: bold;color: #4f4f4f;">
+                            大数点&nbsp;
+                            <div style="display: inline;text-shadow: #8e8e8e 1px 1px 2px;" id="LNP">10</div>
+                        </div>
+                        <div style="font-size: 17px;color: #8e8e8e;">
+                            (+<div style="display: inline;" id="gainLNP">0</div>/s)
+                        </div>
+                    </div>
+                    <div style="position: absolute;display: none;margin-left: 215px;margin-top: 5px;" id="showMP">
+                        <div style="font-weight: bold;color: #009dd9;">
+                            乘法点&nbsp;
+                            <div style="display: inline;text-shadow: #5acaff 1px 1px 2px;">0</div>
+                        </div>
+                        <div style="font-size: 17px;color: #5acaff;">
+                            (+<div style="display: inline;">0</div>)
+                        </div>
+                    </div>
+                    <div class="reset1" style="display: none;" id="reset1" onclick="showDialog(1)">×</div>
+                </div>
+            </div>
+            <div class="body2_3">
+                <div class="background" style="overflow: hidden;">
+                    <div class="main" id="main1_1">
+                        <div style="height: 20px;"></div>
+                        <div class="upgrade">
+                            <div style="width: 60px;">后继器</div>
+                            <div style="width: 250px;">等级&nbsp;<div style="display: inline;" id="upgradeLevel1_1">0</div></div>
+                            <div class="upgrade_button1" id="upgrade1_1" onclick="upgrade1('1_1')"><div style="display: inline;font-weight: bold;color: #4f4f4f;" id="upgradePrice1_1">10</div>&nbsp;大数点</div>
+                        </div>
+                        <div class="upgrade" style="color: #8e8e8e;">
+                            <div style="width: 300px;">基础效果：大数点获取+<div style="display: inline;" id="upgradeBasic1_1">1</div></div>
+                            <div style="width: 200px;">总效果：+<div style="display: inline;" id="upgradeEffect1_1">0</div></div>
+                        </div>
+                        <div class="upgrade" style="height: 20px;">
+                            <div class="upgrade_line"></div>
+                        </div>
+                        <div class="upgrade">
+                            <div style="width: 60px;">累加器</div>
+                            <div style="width: 250px;">等级&nbsp;<div style="display: inline;" id="upgradeLevel1_2">0</div></div>
+                            <div class="upgrade_button1" id="upgrade1_2" onclick="upgrade1('1_2')"><div style="display: inline;font-weight: bold;color: #4f4f4f;" id="upgradePrice1_2">100</div>&nbsp;大数点</div>
+                        </div>
+                        <div class="upgrade" style="color: #8e8e8e;">
+                            <div style="width: 300px;">基础效果：大数点获取+<div style="display: inline;" id="upgradeBasic1_2">100</div>%</div>
+                            <div style="width: 200px;">总效果：+<div style="display: inline;" id="upgradeEffect1_2">0</div>%</div>
+                        </div>
+                        <div class="upgrade" style="height: 20px;">
+                            <div class="upgrade_line"></div>
+                        </div>
+                        <div class="upgrade">
+                            <div style="width: 60px;">压缩器</div>
+                            <div style="width: 250px;">等级&nbsp;<div style="display: inline;" id="upgradeLevel1_3">0</div><div style="display: inline;color: #169000;font-weight: bold;" id="upgradeFreeLevelText1_3">(+<div style="display: inline;" id="upgradeFreeLevel1_3">0</div>)</div></div>
+                            <div class="upgrade_button1" id="upgrade1_3" onclick="upgrade1('1_3')"><div style="display: inline;font-weight: bold;color: #4f4f4f;" id="upgradePrice1_3">1000</div>&nbsp;大数点</div>
+                        </div>
+                        <div class="upgrade" style="color: #8e8e8e;">
+                            <div style="width: 300px;">基础效果：加法升级价格/<div style="display: inline;" id="upgradeBasic1_3">1.1</div></div>
+                            <div style="width: 200px;">总效果：/<div style="display: inline;" id="upgradeEffect1_3">1.00</div></div>
+                        </div>
+                    </div>
+                    <div class="main" id="main1_2">
+                        <div style="height: 20px;"></div>
+                        <div class="research1">
+                            <div class="research_button1" id="research1_1" onclick="research1(1)">
+                                1<br>后继器每10级基础效果×<div style="display: inline;" id="researchEffect1_1">2</div><br><br><br><br><div style="display: inline;font-weight: bold;color: #4f4f4f;">1000</div>大数点
+                            </div>
+                            <div class="research_button1" id="research1_2" onclick="research1(2)">
+                                2<br>累加器每1级基础效果+<div style="display: inline;" id="researchEffect1_2">10</div>%<br><br><br><br><div style="display: inline;font-weight: bold;color: #4f4f4f;">50000</div>大数点
+                            </div>
+                            <div class="research_button1" id="research1_3" onclick="research1(3)">
+                                3<br>压缩器基础效果+0.1<br><br><br><br><div style="display: inline;font-weight: bold;color: #4f4f4f;">300000</div>大数点
+                            </div>
+                            <div class="research_button1" id="research1_4" onclick="research1(4)">
+                                4<br>加法升级总等级提升大数点获取<div style="font-weight: bold;color: #8e8e8e;">当前总效果：<br>×<div style="display: inline;" id="researchEffect1_4">1.00</div></div><br><div style="display: inline;font-weight: bold;color: #4f4f4f;">1e6</div>大数点
+                            </div>
+                            <div class="research_button1" id="research1_5" onclick="research1(5)">
+                                5<br>当前大数点提升大数点获取<div style="font-weight: bold;color: #8e8e8e;">当前总效果：<br>×<div style="display: inline;" id="researchEffect1_5">1.00</div></div><br><div style="display: inline;font-weight: bold;color: #4f4f4f;">5e9</div>大数点
+                            </div>
+                            <div class="research_button1" id="research1_6" onclick="research1(6)">
+                                6<br>解锁自动化T1<br><br><br><br><br><div style="display: inline;font-weight: bold;color: #4f4f4f;">1e12</div>大数点
+                            </div>
+                        </div>
+                        <div class="research1">
+                            <div class="research_button1" id="research1_7" onclick="research1(7)">
+                                7<br>游戏时长提升大数点获取<div style="font-weight: bold;color: #8e8e8e;">当前总效果：<br>×<div style="display: inline;" id="researchEffect1_7">1.00</div></div><br><div style="display: inline;font-weight: bold;color: #4f4f4f;">1e13</div>大数点
+                            </div>
+                            <div class="research_button1" id="research1_8" onclick="research1(8)">
+                                8<br>条状研究购买数提升大数点获取<div style="font-weight: bold;color: #8e8e8e;">当前总效果：<br>×<div style="display: inline;" id="researchEffect1_8">1.00</div></div><br><div style="display: inline;font-weight: bold;color: #4f4f4f;">4e15</div>大数点
+                            </div>
+                            <div class="research_button1" id="research1_9" onclick="research1(9)">
+                                9<br>解锁理论Ⅰ<br><br><br><br><br><div style="display: inline;font-weight: bold;color: #4f4f4f;">2e18</div>大数点
+                            </div>
+                            <div class="research_button1" id="research1_10" onclick="research1(10)">
+                                10<br>成就点总效果指数+1<br><br><br><br><div style="display: inline;font-weight: bold;color: #4f4f4f;">1e20</div>大数点
+                            </div>
+                            <div class="research_button1" id="research1_11" onclick="research1(11)">
+                                11<br>基础研究价格增长指数-0.05<br><br><br><br><div style="display: inline;font-weight: bold;color: #4f4f4f;">2e22</div>大数点
+                            </div>
+                            <div class="research_button1" id="research1_12" onclick="research1(12)">
+                                12<br>解锁乘法<br>(敬请期待)<br><br><br><br><div style="display: inline;font-weight: bold;color: #4f4f4f;">1e30</div>大数点
+                            </div>
+                        </div>
+                    </div>
+                    <div class="main" id="main1_3">
+                        <div style="height: 20px;"></div>
+                        <div class="upgrade" style="height: 20px;">
+                            <div style="width: 400px;line-height: 20px;">你有&nbsp;<div style="display: inline;font-weight: bold;font-size: 20px;color: #4f4f4f;text-shadow: #8e8e8e 1px 1px 2px;" id="basicTheory">0</div>&nbsp;基础理论</div>
+                        </div>
+                        <div class="upgrade" style="margin-top: 20px;">
+                            <div style="width: 70px;">基础研究</div>
+                            <div style="width: 250px;">获得<div style="display: inline;" id="basicResearchEffect">1</div>基础理论</div>
+                            <div class="upgrade_button1" id="basicResearch" onclick="basicResearch()"><div style="display: inline;font-weight: bold;color: #4f4f4f;" id="basicResearchPrice">1e10</div>&nbsp;大数点</div>
+                        </div>
+                        <div class="upgrade" style="height: 20px;">
+                            <div class="upgrade_line"></div>
+                        </div>
+                        <div class="upgrade" style="height: auto;margin-top: 0px;">
+                            <div style="width: 550px;">
+                                <div class="upgrade" style="height: 64px;">
+                                    <div class="research_button1" style="width: 160px;height: 60px;" id="gainBasicApplication" onclick="gainBasicApplication()">
+                                        <div style="margin: 5px 0px;">应用<div style="display: inline;" id="basicApplicationPrice">1</div>个基础理论以获得增益效果</div>
+                                    </div>
+                                </div>
+                                <div style="margin-top: 15px;">你有&nbsp;<div style="display: inline;font-weight: bold;font-size: 20px;color: #4f4f4f;text-shadow: #8e8e8e 1px 1px 2px;" id="basicApplication">0</div>&nbsp;基础应用</div>
+                                <div class="upgrade" style="height: 30px;line-height: 30px;margin-top: 0px;">
+                                    <div>当前增益效果</div>
+                                </div>
+                                <div class="upgrade" style="height: 309px;margin-top: 0px;">
+                                    <div class="table">
+                                        <div class="table_text" id="applicationText1">一次性获得<div style="display: inline;" id="applicationEffect1">1e25</div>大数点</div>
+                                        <div class="table_text" id="applicationText2">大数点获取+<div style="display: inline;" id="applicationEffect2">1e20</div></div>
+                                        <div class="table_text" id="applicationText3">大数点获取+<div style="display: inline;" id="applicationEffect3">50</div>%</div>
+                                        <div class="table_text" id="applicationText4">后继器价格/<div style="display: inline;" id="applicationEffect4">15</div></div>
+                                        <div class="table_text" id="applicationText5">累加器价格/<div style="display: inline;" id="applicationEffect5">25</div></div>
+                                        <div class="table_text" id="applicationText6">压缩器免费等级+<div style="display: inline;" id="applicationEffect6">5</div></div>
+                                        <div class="table_text" id="applicationText7">条状研究1的效果+<div style="display: inline;" id="applicationEffect7">0.1</div></div>
+                                        <div class="table_text" id="applicationText8">条状研究2的效果+<div style="display: inline;" id="applicationEffect8">50</div>%</div>
+                                        <div class="table_text" id="applicationText9">条状研究4的总效果指数+<div style="display: inline;" id="applicationEffect9">0.25</div></div>
+                                        <div id="applicationText10">条状研究5的总效果指数+<div style="display: inline;" id="applicationEffect10">0.2</div></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="width: 550px;">
+                                <div class="upgrade" style="height: 30px;line-height: 30px;margin-top: 6.5px;">
+                                    <div>理论Ⅰ里程碑</div>
+                                </div>
+                                <div class="milestone1">
+                                        <div class="milestone_button1" id="basicMilestone1_1"><div style="color: #4f4f4f;font-weight: bold;">5基础应用</div>基础研究有20%概率获得双倍基础理论</div>
+                                        <div class="milestone_button1" id="basicMilestone1_2"><div style="color: #4f4f4f;font-weight: bold;">10基础应用</div>应用基础理论时额外出现一个选项</div>
+                                        <div class="milestone_button1" id="basicMilestone1_3"><div style="color: #4f4f4f;font-weight: bold;">20基础应用</div>解锁自动进行基础研究</div>
+                                        <div class="milestone_button1" id="basicMilestone1_4"><div style="color: #4f4f4f;font-weight: bold;">50基础应用</div>基础研究不再消耗大数点</div>
+                                        <div class="milestone_button1" id="basicMilestone1_5"><div style="color: #4f4f4f;font-weight: bold;">100基础应用</div>解锁自动应用基础理论</div>
+                                        <div class="milestone_button1" id="basicMilestone1_6" style="display: none;"><div style="color: #4f4f4f;font-weight: bold;">1000基础应用</div>提升所有基础应用的增益效果</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="main" id="main1_4">
+                        <div style="height: 20px;"></div>
+                        <div class="upgrade" style="height: auto;width: auto;flex-wrap: wrap;margin: 10px 20px 0px;">
+                            <div class="autobuyer" id="autobuyer1_1">
+                                <div>自动购买后继器</div>
+                                <div class="autobuyer_button" id="autobuyerButton1_1" onclick="autoBuyer1('1')">已开启</div>
+                            </div>
+                            <div class="autobuyer" id="autobuyer1_2">
+                                <div>自动购买累加器</div>
+                                <div class="autobuyer_button" id="autobuyerButton1_2" onclick="autoBuyer1('2')">已开启</div>
+                            </div>
+                            <div class="autobuyer" id="autobuyer1_3">
+                                <div>自动购买压缩器</div>
+                                <div class="autobuyer_button" id="autobuyerButton1_3" onclick="autoBuyer1('3')">已开启</div>
+                            </div>
+                            <div class="autobuyer" id="autobuyer1_4" style="display: none;">
+                                <div>自动购买条状研究</div>
+                                <div class="autobuyer_button" id="autobuyerButton1_4" onclick="autoBuyer1('4')">已开启</div>
+                            </div>
+                            <div class="autobuyer" id="autobuyer1_5" style="display: none;">
+                                <div>自动进行基础研究</div>
+                                <div class="autobuyer_button" id="autobuyerButton1_5" onclick="autoBuyer1('5')">已开启</div>
+                            </div>
+                            <div class="autobuyer" id="autobuyer1_6" style="display: none;">
+                                <div>自动应用基础理论</div>
+                                <div class="autobuyer_button" id="autobuyerButton1_6" onclick="autoBuyer1('6')">已开启</div>
+                            </div>
+                        </div>
+                        <div class="upgrade">
+                            <div class="upgrade_button1" style="width: 160px;margin: 0px 10px;" onclick="autoBuyerAll1(1)">开启全部</div>
+                            <div class="upgrade_button1" style="width: 160px;margin: 0px 10px;" onclick="autoBuyerAll1(0)">关闭全部</div>
+                        </div>
+                    </div>
+                    <div class="main" id="main2_1">
+                        <div style="height: 20px;"></div>
+                        <div class="upgrade">
+                            <div style="width: 60px;">累乘器</div>
+                            <div style="width: 250px;">等级&nbsp;0</div>
+                            <div class="upgrade_button1"><div style="display: inline;font-weight: bold;color: #009dd9;">10</div>&nbsp;乘法点</div>
+                        </div>
+                        <div class="upgrade" style="color: #8e8e8e;">
+                            <div style="width: 300px;">基础效果：大数点获取×1.5</div>
+                            <div style="width: 200px;">总效果：×1</div>
+                        </div>
+                        <div class="upgrade" style="height: 20px;">
+                            <div class="upgrade_line"></div>
+                        </div>
+                        <div class="upgrade">
+                            <div style="width: 60px;">优化器</div>
+                            <div style="width: 250px;">等级&nbsp;0</div>
+                            <div class="upgrade_button1"><div style="display: inline;font-weight: bold;color: #009dd9;">100</div>&nbsp;乘法点</div>
+                        </div>
+                        <div class="upgrade" style="color: #8e8e8e;">
+                            <div style="width: 300px;">基础效果：乘法点获取×2</div>
+                            <div style="width: 200px;">总效果：×1</div>
+                        </div>
+                        <div class="upgrade" style="height: 20px;">
+                            <div class="upgrade_line"></div>
+                        </div>
+                        <div class="upgrade">
+                            <div style="width: 60px;">增幅器</div>
+                            <div style="width: 250px;">等级&nbsp;0</div>
+                            <div class="upgrade_button1"><div style="display: inline;font-weight: bold;color: #009dd9;">1000</div>&nbsp;乘法点</div>
+                        </div>
+                        <div class="upgrade" style="color: #8e8e8e;">
+                            <div style="width: 300px;">基础效果：基础理论获取+100%</div>
+                            <div style="width: 200px;">总效果：+0%</div>
+                        </div>
+                    </div>
+                    <div class="main" id="main2_2">
+                        <div style="height: 20px;"></div>
+                        <div class="upgrade" style="height: 17px;line-height: 17px;color: #8e8e8e;">
+                            每一列研究都需要从上至下购买
+                        </div>
+                        <div class="upgrade" style="height: 17px;line-height: 17px;color: #8e8e8e;">
+                            每次购买某一列的研究后，所有其他列的研究价格倍数+1
+                        </div>
+                        <div class="upgrade" style="height: 36px;">
+                            <div style="width: 316px;color: #8e8e8e;text-align: left;">下次乘法重置时复位研究并返还乘法点</div>
+                            <div class="upgrade_button1" style="width: 90px;height: 32px;line-height: 32px;font-size: 16px;">已开启</div>
+                        </div>
+                        <div class="research1" style="height: auto;">
+                            <div class="research2">
+                                <div style="height: 30px;line-height: 30px;font-size: 17px;">第1列&nbsp;(<div style="display: inline;font-weight: bold;color: #009dd9;">×1</div>)</div>
+                                <div class="research_button2">
+                                    1-1<br>条状研究1的效果×1.5<br><br><br><div style="display: inline;font-weight: bold;color: #009dd9;">1</div>乘法点
+                                </div>
+                                <div class="research_button2">
+                                    1-2<br>条状研究2的效果×2<br><br><br><div style="display: inline;font-weight: bold;color: #009dd9;">10</div>乘法点
+                                </div>
+                                <div class="research_button2">
+                                    1-3<br>条状研究3的效果+0.1<br><br><br><div style="display: inline;font-weight: bold;color: #009dd9;">100</div>乘法点
+                                </div>
+                                <div class="research_button2">
+                                    1-4<br>条状研究7的总效果指数+0.5<br><br><br><div style="display: inline;font-weight: bold;color: #009dd9;">1000</div>乘法点
+                                </div>
+                                <div class="research_button2">
+                                    1-5<br>解锁6个新的条状研究<br><br><br><div style="display: inline;font-weight: bold;color: #009dd9;">10000</div>乘法点
+                                </div>
+                            </div>
+                            <div class="research2">
+                                <div style="height: 30px;line-height: 30px;font-size: 17px;">第2列&nbsp;(<div style="display: inline;font-weight: bold;color: #009dd9;">×1</div>)</div>
+                                <div class="research_button2">
+                                    2-1<br>乘法重置次数提升大数点获取<div style="font-weight: bold;color: #8e8e8e;">当前总效果：<br>×1.00</div><div style="display: inline;font-weight: bold;color: #009dd9;">1</div>乘法点
+                                </div>
+                                <div class="research_button2">
+                                    2-2<br>当前乘法点提升大数点获取<div style="font-weight: bold;color: #8e8e8e;">当前总效果：<br>×1.00</div><div style="display: inline;font-weight: bold;color: #009dd9;">15</div>乘法点
+                                </div>
+                                <div class="research_button2">
+                                    2-3<br>表状研究购买数提升大数点获取<div style="font-weight: bold;color: #8e8e8e;">当前总效果：<br>×1.00</div><div style="display: inline;font-weight: bold;color: #009dd9;">200</div>乘法点
+                                </div>
+                                <div class="research_button2">
+                                    2-4<br>乘法升级总等级提升大数点获取<div style="font-weight: bold;color: #8e8e8e;">当前总效果：<br>×1.00</div><div style="display: inline;font-weight: bold;color: #009dd9;">3000</div>乘法点
+                                </div>
+                                <div class="research_button2">
+                                    2-5<br>普通挑战完成数提升大数点获取<div style="font-weight: bold;color: #8e8e8e;">当前总效果：<br>×1.00</div><div style="display: inline;font-weight: bold;color: #009dd9;">50000</div>乘法点
+                                </div>
+                            </div>
+                            <div class="research2">
+                                <div style="height: 30px;line-height: 30px;font-size: 17px;">第3列&nbsp;(<div style="display: inline;font-weight: bold;color: #009dd9;">×1</div>)</div>
+                                <div class="research_button2">
+                                    3-1<br>基础应用提升乘法点获取<div style="font-weight: bold;color: #8e8e8e;">当前总效果：<br>×1.00</div><div style="display: inline;font-weight: bold;color: #009dd9;">3</div>乘法点
+                                </div>
+                                <div class="research_button2">
+                                    3-2<br>基础应用的前三个增益效果改为乘法点相关<br><br><div style="display: inline;font-weight: bold;color: #009dd9;">40</div>乘法点
+                                </div>
+                                <div class="research_button2">
+                                    3-3<br>成就点效果对乘法点获取也有效<br><br><br><div style="display: inline;font-weight: bold;color: #009dd9;">500</div>乘法点
+                                </div>
+                                <div class="research_button2">
+                                    3-4<br>乘法点获取指数+0.25<br><br><br><div style="display: inline;font-weight: bold;color: #009dd9;">8000</div>乘法点
+                                </div>
+                                <div class="research_button2">
+                                    3-5<br>当前大数点提升乘法点获取<div style="font-weight: bold;color: #8e8e8e;">当前总效果：<br>×1.00</div><div style="display: inline;font-weight: bold;color: #009dd9;">100000</div>乘法点
+                                </div>
+                            </div>
+                            <div class="research2">
+                                <div style="height: 30px;line-height: 30px;font-size: 17px;">第4列&nbsp;(<div style="display: inline;font-weight: bold;color: #009dd9;">×1</div>)</div>
+                                <div class="research_button2">
+                                    4-1<br>解锁自动购买条状研究<br><br><br><div style="display: inline;font-weight: bold;color: #009dd9;">5</div>乘法点
+                                </div>
+                                <div class="research_button2">
+                                    4-2<br>解锁理论Ⅱ<br><br><br><br><div style="display: inline;font-weight: bold;color: #009dd9;">70</div>乘法点
+                                </div>
+                                <div class="research_button2">
+                                    4-3<br>解锁普通挑战<br><br><br><br><div style="display: inline;font-weight: bold;color: #009dd9;">900</div>乘法点
+                                </div>
+                                <div class="research_button2">
+                                    4-4<br>解锁自动化T2<br><br><br><br><div style="display: inline;font-weight: bold;color: #009dd9;">15000</div>乘法点
+                                </div>
+                                <div class="research_button2">
+                                    4-5<br>解锁乘方<br><br><br><br><div style="display: inline;font-weight: bold;color: #009dd9;">1e6</div>乘法点
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="main" id="main2_3">
+                        <div style="height: 20px;"></div>
+                        <div class="upgrade" style="height: 20px;">
+                            <div style="width: 400px;line-height: 20px;">你有&nbsp;<div style="display: inline;font-weight: bold;font-size: 20px;color: #009dd9;text-shadow: #5acaff 1px 1px 2px;">0</div>&nbsp;代数理论</div>
+                        </div>
+                        <div class="upgrade" style="margin-top: 20px;">
+                            <div style="width: 70px;">代数研究</div>
+                            <div style="width: 250px;">获得1代数理论</div>
+                            <div class="upgrade_button1"><div style="display: inline;font-weight: bold;color: #009dd9;">1000</div>&nbsp;乘法点</div>
+                        </div>
+                        <div class="upgrade" style="height: 20px;">
+                            <div class="upgrade_line"></div>
+                        </div>
+                        <div class="upgrade" style="height: 30px;line-height: 30px;">
+                            <div>代数公式</div>
+                        </div>
+                        <div class="upgrade" style="height: 30px;line-height: 30px;">
+                            <math xmlns="http://www.w3.org/1998/Math/MathML" display="block" style="font-size: 24px;"><mi>y</mi><mo>=</mo><msup><mi>x</mi><mi>a</mi></msup><mo>×</mo><mi>b</mi><mo>+</mo><mi>c</mi></math>
+                        </div>
+                        <div class="upgrade" style="width: 750px;margin: 10px auto 0px;background-color: #e2e2e2;">
+                            <div style="width: 150px;">a&nbsp;=&nbsp;0.5</div>
+                            <div style="width: 150px;">b&nbsp;=&nbsp;1</div>
+                            <div style="width: 150px;">c&nbsp;=&nbsp;0</div>
+                            <div style="width: 150px;">x&nbsp;=&nbsp;0</div>
+                            <div style="width: 150px;">y&nbsp;=&nbsp;0</div>
+                        </div>
+                        <div class="upgrade">
+                            <div style="width: 300px;">x的值每秒+1，乘法重置时变为0</div>
+                            <div style="width: 250px;text-align: right;">y的值使大数点获取<div style="display: inline;font-weight: bold;color: #009dd9;">×1</div></div>
+                        </div>
+                        <div class="upgrade" style="height: 36px;">
+                            <div style="width: 150px;text-align: left;">理论Ⅱ升级</div>
+                            <div style="width: 333px;color: #8e8e8e;text-align: left;">下次乘法重置时复位升级并返还代数理论</div>
+                            <div class="upgrade_button1" style="width: 90px;height: 32px;line-height: 32px;font-size: 16px;">已开启</div>
+                        </div>
+                        <div class="upgrade">
+                            <div style="width: 70px;">a&nbsp;+&nbsp;0.05</div>
+                            <div style="width: 250px;">等级&nbsp;0</div>
+                            <div class="upgrade_button1"><div style="display: inline;font-weight: bold;color: #009dd9;">1</div>&nbsp;代数理论</div>
+                        </div>
+                        <div class="upgrade">
+                            <div style="width: 70px;">b&nbsp;+&nbsp;1</div>
+                            <div style="width: 250px;">等级&nbsp;0</div>
+                            <div class="upgrade_button1"><div style="display: inline;font-weight: bold;color: #009dd9;">1</div>&nbsp;代数理论</div>
+                        </div>
+                        <div class="upgrade">
+                            <div style="width: 70px;">c&nbsp;+&nbsp;20</div>
+                            <div style="width: 250px;">等级&nbsp;0</div>
+                            <div class="upgrade_button1"><div style="display: inline;font-weight: bold;color: #009dd9;">1</div>&nbsp;代数理论</div>
+                        </div>
+                        <div class="upgrade">
+                            <div style="width: 70px;">改进公式</div>
+                            <div style="width: 250px;">等级&nbsp;0&nbsp;/&nbsp;4</div>
+                            <div class="upgrade_button1"><div style="display: inline;font-weight: bold;color: #009dd9;">10</div>&nbsp;代数理论</div>
+                        </div>
+                    </div>
+                    <div class="main" id="main2_4">
+                        <div style="height: 20px;"></div>
+                        <div class="upgrade" style="height: auto;">
+                            <div class="challenge">
+                                1<br>加法升级只有后继器有效<br><br><br>目标：1e40大数点<br>奖励：代数公式中a的值+0.1
+                                <div class="challenge_button">开始挑战</div>
+                            </div>
+                            <div class="challenge">
+                                2<br>大部分条状研究无效<br><br><br>目标：1e45大数点<br>奖励：代数公式中b的值+2
+                                <div class="challenge_button">开始挑战</div>
+                            </div>
+                            <div class="challenge">
+                                3<br>加法升级价格增长大幅提升<br><br><br>目标：1e50大数点<br>奖励：代数公式中c的值+40
+                                <div class="challenge_button">开始挑战</div>
+                            </div>
+                        </div>
+                        <div class="upgrade" style="height: auto;margin-top: 12px;">
+                            <div class="challenge">
+                                4<br>大数点获取指数-0.5<br><br>目标：1e30大数点<br>奖励：代数研究价格增长指数-0.1
+                                <div class="challenge_button">开始挑战</div>
+                            </div>
+                            <div class="challenge">
+                                5<br>加法升级总等级降低大数点获取(每级/2)<br>目标：1e20大数点<br>奖励：代数研究不再消耗乘法点
+                                <div class="challenge_button">开始挑战</div>
+                            </div>
+                            <div class="challenge">
+                                6<br>大数点获取指数每秒-0.1<br><br><br>目标：1e25大数点<br>奖励：改进代数公式
+                                <div class="challenge_button">开始挑战</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="main" id="main2_5">
+                        <div style="height: 20px;"></div>
+                        <div class="upgrade" style="height: auto;width: auto;flex-wrap: wrap;margin: 10px 20px 0px;">
+                            <div class="autobuyer">
+                                <div>自动购买累乘器</div>
+                                <div class="autobuyer_button">已开启</div>
+                            </div>
+                            <div class="autobuyer">
+                                <div>自动购买优化器</div>
+                                <div class="autobuyer_button">已开启</div>
+                            </div>
+                            <div class="autobuyer">
+                                <div>自动购买增幅器</div>
+                                <div class="autobuyer_button">已开启</div>
+                            </div>
+                            <div class="autobuyer">
+                                <div>自动购买表状研究</div>
+                                <div class="autobuyer_button">已开启</div>
+                            </div>
+                            <div class="autobuyer">
+                                <div>自动进行代数研究</div>
+                                <div class="autobuyer_button">已开启</div>
+                            </div>
+                            <div class="autobuyer" style="width: 292px;">
+                                <div>自动进行乘法重置</div>
+                                <div class="upgrade" style="height: 36px;margin-top: 15px;">
+                                    <div class="autobuyer_button" style="margin: 0px;">数量模式</div>
+                                    <div class="upgrade" style="width: 175px;margin-top: 0px;height: 36px;line-height: 36px;">
+                                        <textarea maxlength="10" placeholder="10" class="autobuyer_input"></textarea>
+                                        <div>乘法点</div>
+                                    </div>
+                                </div>
+                                <div class="autobuyer_button" style="margin: 14px auto;">已开启</div>
+                            </div>
+                        </div>
+                        <div class="upgrade">
+                            <div class="upgrade_button1" style="width: 160px;margin: 0px 10px;">开启全部</div>
+                            <div class="upgrade_button1" style="width: 160px;margin: 0px 10px;">关闭全部</div>
+                        </div>
+                    </div>
+                    <div class="main" id="main11_1">
+                        <div style="height: 20px;"></div>
+                        <div class="upgrade" style="height: 20px;">
+                            <div style="width: 400px;line-height: 20px;">你有&nbsp;<div style="display: inline;font-weight: bold;font-size: 20px;color: #169500;text-shadow: #51af41 1px 1px 2px;" id="AP">0</div>&nbsp;成就点(<div style="display: inline;" id="APPecent">0</div>%)</div>
+                        </div>
+                        <div class="upgrade" style="height: 30px;">
+                            <div style="width: 250px;line-height: 30px;">成就点使大数点获取<div style="display: inline;font-weight: bold;color: #169500;">×<div style="display: inline;" id="APEffect">1</div></div></div>
+                        </div>
+                        <div class="upgrade" style="height: auto;margin-top: 30px;">
+                            <div class="achievement_button" onclick="showAchievement('1_1')" id="achievement1_1">1-1</div>
+                            <div class="achievement_button" onclick="showAchievement('1_2')" id="achievement1_2">1-2</div>
+                            <div class="achievement_button" onclick="showAchievement('1_3')" id="achievement1_3">1-3</div>
+                            <div class="achievement_button" onclick="showAchievement('1_4')" id="achievement1_4">1-4</div>
+                            <div class="achievement_button" onclick="showAchievement('1_5')" id="achievement1_5">1-5</div>
+                            <div class="achievement_button" onclick="showAchievement('1_6')" id="achievement1_6">1-6</div>
+                            <div class="achievement_button" onclick="showAchievement('1_7')" id="achievement1_7">1-7</div>
+                            <div class="achievement_button" onclick="showAchievement('1_8')" id="achievement1_8">1-8</div>
+                            <div class="achievement_button" onclick="showAchievement('1_9')" id="achievement1_9">1-9</div>
+                            <div class="achievement_button" onclick="showAchievement('1_10')" id="achievement1_10">1-10</div>
+                        </div>
+                        <div class="upgrade" style="height: auto;display: none;">
+                            <div class="achievement_button" onclick="showAchievement('2_1')">2-1</div>
+                            <div class="achievement_button" onclick="showAchievement('2_2')">2-2</div>
+                            <div class="achievement_button" onclick="showAchievement('2_3')">2-3</div>
+                            <div class="achievement_button" onclick="showAchievement('2_4')">2-4</div>
+                            <div class="achievement_button" onclick="showAchievement('2_5')">2-5</div>
+                            <div class="achievement_button" onclick="showAchievement('2_6')">2-6</div>
+                            <div class="achievement_button" onclick="showAchievement('2_7')">2-7</div>
+                            <div class="achievement_button" onclick="showAchievement('2_8')">2-8</div>
+                            <div class="achievement_button" onclick="showAchievement('2_9')">2-9</div>
+                            <div class="achievement_button" onclick="showAchievement('2_10')">2-10</div>
+                        </div>
+                        <div class="upgrade" style="height: auto;margin-top: 30px;">
+                            <div class="autobuyer" id="achievementText" style="line-height: 24px;font-size: 16px;">
+                                1-1&nbsp;起点<br>购买一个后继器<br><br><br><br>奖励：1成就点
+                            </div>
+                        </div>
+                    </div>
+                    <div class="main" id="main11_2">
+                        <div style="height: 20px;"></div>
+                        <div class="upgrade" style="height: 20px;">
+                            <div style="width: 400px;line-height: 20px;">你有&nbsp;<div style="display: inline;font-weight: bold;font-size: 20px;color: #169000;text-shadow: #51af41 1px 1px 2px;" id="UP">0</div>&nbsp;不稳定点(<div style="display: inline;" id="UPPecent">0</div>%)</div>
+                        </div>
+                        <div class="upgrade" style="height: 30px;">
+                            <div style="width: 250px;line-height: 30px;">不稳定点使大数点获取<div style="display: inline;font-weight: bold;color: #169000;">×<div style="display: inline;" id="UPEffect">1</div></div></div>
+                        </div>
+                        <div class="upgrade" style="height: 36px;">
+                            <div style="width: 384px;color: #8e8e8e;text-align: left;">出于平衡性考虑，你可以手动开关隐藏成就奖励</div>
+                            <div class="upgrade_button1" style="width: 90px;height: 32px;line-height: 32px;font-size: 16px;">已开启</div>
+                        </div>
+                        <div class="upgrade" style="height: auto;margin-top: 30px;">
+                            <div class="achievement_button" onclick="showSecretAchievement('1')">1</div>
+                            <div class="achievement_button" onclick="showSecretAchievement('2')">2</div>
+                            <div class="achievement_button" onclick="showSecretAchievement('3')" style="display: none;">3</div>
+                            <div class="achievement_button" onclick="showSecretAchievement('4')" style="display: none;">4</div>
+                            <div class="achievement_button" onclick="showSecretAchievement('5')" style="display: none;">5</div>
+                        </div>
+                        <div class="upgrade" style="height: auto;display: none;">
+                            <div class="achievement_button" onclick="showSecretAchievement('6')">6</div>
+                            <div class="achievement_button" onclick="showSecretAchievement('7')">7</div>
+                            <div class="achievement_button" onclick="showSecretAchievement('8')">8</div>
+                            <div class="achievement_button" onclick="showSecretAchievement('9')">9</div>
+                            <div class="achievement_button" onclick="showSecretAchievement('10')">10</div>
+                        </div>
+                        <div class="upgrade" style="height: auto;display: none;">
+                            <div class="achievement_button" onclick="showSecretAchievement('11')">11</div>
+                            <div class="achievement_button" onclick="showSecretAchievement('12')">12</div>
+                            <div class="achievement_button" onclick="showSecretAchievement('13')">13</div>
+                            <div class="achievement_button" onclick="showSecretAchievement('14')">14</div>
+                            <div class="achievement_button" onclick="showSecretAchievement('15')">15</div>
+                        </div>
+                        <div class="upgrade" style="height: auto;display: none;">
+                            <div class="achievement_button" onclick="showSecretAchievement('16')">16</div>
+                            <div class="achievement_button" onclick="showSecretAchievement('17')">17</div>
+                            <div class="achievement_button" onclick="showSecretAchievement('18')">18</div>
+                            <div class="achievement_button" onclick="showSecretAchievement('19')">19</div>
+                            <div class="achievement_button" onclick="showSecretAchievement('20')">20</div>
+                        </div>
+                        <div class="upgrade" style="height: auto;display: none;">
+                            <div class="achievement_button" onclick="showSecretAchievement('21')">21</div>
+                            <div class="achievement_button" onclick="showSecretAchievement('22')">22</div>
+                            <div class="achievement_button" onclick="showSecretAchievement('23')">23</div>
+                            <div class="achievement_button" onclick="showSecretAchievement('24')">24</div>
+                            <div class="achievement_button" onclick="showSecretAchievement('25')">25</div>
+                        </div>
+                        <div class="upgrade" style="height: auto;margin-top: 30px;">
+                            <div class="autobuyer" id="secretAchievementText" style="line-height: 24px;font-size: 16px;">
+                                1&nbsp;真正的起点<br>???<br><br><br><br>奖励：1不稳定点
+                            </div>
+                        </div>
+                    </div>
+                    <div class="main" id="main12_1">
+                        <div style="height: 20px;"></div>
+                        <div class="upgrade" style="height: 17px;line-height: 17px;">
+                            <div style="font-weight: bold;">全局</div>
+                        </div>
+                        <div class="upgrade" style="height: 20px;margin-top: 5px;">
+                            <div class="upgrade_line"></div>
+                        </div>
+                        <div class="upgrade" style="height: auto;margin-top: 0px;line-height: 30px;font-size: 16px;">
+                            <div style="width: 160px;text-align: left;">
+                                <div>游戏时长</div>
+                                <div>存档创建时间</div>
+                                <div>普通成就完成数</div>
+                                <div style="display: none;">隐藏成就完成数</div>
+                            </div>
+                            <div style="width: 170px;text-align: right;">
+                                <div id="gameTime">0天0时0分0秒</div>
+                                <div id="firstTime">YYYY/MM/DD</div>
+                                <div id="achievementCount">0</div>
+                                <div style="display: none;">0</div>
+                            </div>
+                        </div>
+                        <div class="upgrade" style="height: 17px;line-height: 17px;margin-top: 40px;">
+                            <div style="color: #4f4f4f;font-weight: bold;">加法</div>
+                        </div>
+                        <div class="upgrade" style="height: 20px;margin-top: 5px;">
+                            <div class="upgrade_line"></div>
+                        </div>
+                        <div class="upgrade" style="height: auto;margin-top: 0px;line-height: 30px;font-size: 16px;">
+                            <div style="width: 160px;text-align: left;">
+                                <div>累计大数点</div>
+                                <div>最高大数点</div>
+                                <div>最高加法升级总等级</div>
+                                <div>最高基础应用</div>
+                            </div>
+                            <div style="width: 170px;text-align: right;">
+                                <div id="allLNP">0</div>
+                                <div id="maxLNP">0</div>
+                                <div id="maxUpgradeLevel1_all">0</div>
+                                <div id="maxBasicApplication">0</div>
+                            </div>
+                        </div>
+                        <div style="display: none;">
+                            <div class="upgrade" style="height: 17px;line-height: 17px;margin-top: 40px;">
+                                <div style="color: #009dd9;font-weight: bold;">乘法</div>
+                            </div>
+                            <div class="upgrade" style="height: 20px;margin-top: 5px;">
+                                <div class="upgrade_line"></div>
+                            </div>
+                            <div class="upgrade" style="height: auto;margin-top: 0px;line-height: 30px;font-size: 16px;">
+                                <div style="width: 160px;text-align: left;">
+                                    <div>乘法重置次数</div>
+                                    <div>累计乘法点</div>
+                                    <div>最高乘法点</div>
+                                    <div>最高乘法升级总等级</div>
+                                    <div>代数公式中y的最大值</div>
+                                </div>
+                                <div style="width: 170px;text-align: right;">
+                                    <div>0</div>
+                                    <div>0</div>
+                                    <div>0</div>
+                                    <div>0</div>
+                                    <div>0</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="main" id="main12_2">
+                        <div style="height: 20px;"></div>
+                        <div class="upgrade" style="height: 36px;font-size: 17px;line-height: 36px;">
+                            <div style="width: 100px;text-align: left;">
+                                <div>存档选项</div>
+                            </div>
+                            <div style="width: 600px;text-align: right;">
+                                <div class="setting_button" onclick="saveGame()">手动保存</div>
+                                <div class="setting_button" style="width: 150px;" id="autoSaveText" onclick="changeAutoSave()">自动保存已开启</div>
+                                <div class="setting_button" onclick="exportSave()">导出存档</div>
+                                <div class="setting_button" onclick="importSave()">导入存档</div>
+                                <div class="hard_reset" onclick="showDialog(3)">硬重置</div>
+                                <input type="file" id="select_file" style="display: none;">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="main" id="main12_3">
+                        <div style="height: 20px;"></div>
+                        <div class="upgrade" style="height: 24px;line-height: 24px;">
+                            <div style="font-size: 24px;">大数之路</div>
+                        </div>
+                        <div class="upgrade" style="height: 27px;line-height: 27px;margin-top: 20px;">
+                            <div style="width: 45px;font-size: 17px;text-align: left;color: #8e8e8e;">版本</div>
+                            <div style="width: 140px;font-size: 17px;text-align: right;color: #8e8e8e;">1.0.0-alpha.1</div>
+                        </div>
+                        <div class="upgrade" style="height: 27px;line-height: 27px;">
+                            <div style="width: 45px;font-size: 17px;text-align: left;color: #8e8e8e;">作者</div>
+                            <div style="width: 140px;font-size: 17px;text-align: right;color: #8e8e8e;">静火Ω</div>
+                        </div>
+                        <div class="upgrade" style="height: 27px;line-height: 27px;">
+                            <div style="width: 45px;font-size: 17px;text-align: left;color: #8e8e8e;">QQ群</div>
+                            <div style="width: 140px;font-size: 17px;text-align: right;color: #8e8e8e;">418788176</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script>
+        loadSave();
+        //test();
+    </script>
+</html>
